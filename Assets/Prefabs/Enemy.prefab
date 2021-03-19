@@ -197,6 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb34de48bcbb4fd4ba55810d20ab9ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minAtkDamage: 5
-  maxAtkDamage: 15
+  minAtkDamage: 15
+  maxAtkDamage: 30
   atkCooldown: 1.5
