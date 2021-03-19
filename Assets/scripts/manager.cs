@@ -7,10 +7,25 @@ using UnityEngine.UI;
 public class manager : MonoBehaviour
 {
     public GameObject pausa;
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    public Text pickUpCounter;
+    public GameObject pickUpContainter;
+    public PlayerHealth health;
+
+    public int playerScore = 0;
+    int maxScore = 0;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
+        foreach (var item in pickUpContainter.transform)
+        {
+            maxScore += 1;
+        }
+        UpdatePickUpCounter();
     }
 
     // Update is called once per frame
@@ -18,8 +33,32 @@ public class manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            encender();
+            if (!winScreen.activeSelf && !loseScreen.activeSelf)
+            {
+                encender();
+            }
+            else if (winScreen.activeSelf || loseScreen.activeSelf)
+            {
+                regresarmenu();
+            }
         }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (winScreen.activeSelf)
+            {
+                reloadLevel();
+            }
+            else if (loseScreen.activeSelf)
+            {
+                loadNextLevel();
+            }
+        }
+    }
+    private void LateUpdate()
+    {
+        UpdatePickUpCounter();
+        playerStateCheck();
     }
 
     public void encender()
@@ -48,4 +87,42 @@ public class manager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void addToScore(int amount)
+    {
+        playerScore += amount;
+    }
+
+    void playerStateCheck()
+    {
+        if (playerScore == maxScore)
+        {
+            winScreen.SetActive(true);
+            loseScreen.SetActive(false);
+            Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (health.currentHealth == 0)
+        {
+            loseScreen.SetActive(true);
+            winScreen.SetActive(false);
+            Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
+    public void reloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void loadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    void UpdatePickUpCounter()
+    {
+        pickUpCounter.text = "Pick Ups: " + playerScore + " / " + maxScore;
+    }
 }

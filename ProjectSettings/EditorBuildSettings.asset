@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/inicio.unity
     guid: 3724db2328440f24198355436e9b77d6
   - enabled: 1
-    path: Assets/Scenes/juego.unity
+    path: Assets/Scenes/MovementTest.unity
+    guid: 4f4edc3c4b3ef3a448032e1d6d595042
+  - enabled: 1
+    path: Assets/Scenes/TownLevel.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
