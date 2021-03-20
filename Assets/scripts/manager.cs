@@ -45,11 +45,11 @@ public class manager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (winScreen.activeSelf)
+            if (loseScreen.activeSelf)
             {
                 reloadLevel();
             }
-            else if (loseScreen.activeSelf)
+            else if (winScreen.activeSelf)
             {
                 loadNextLevel();
             }
